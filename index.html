@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 ¡Feliz Navidad, Mi Amor! 🌹</title>
+    <link rel="stylesheet" href="estilos.css">
+        <link rel="icon" href="https://img.icons8.com/emoji/48/sparkling-heart.png">
+</head>
+<body>
+
+    <header class="hero">
+        <h1>Mi Regalo Favorito de la Vida</h1>
+        <p class="subtitle">...y es el que quiero mirar cada mañana. ¡Feliz Día de Navidad!</p>
+    </header>
+
+    <main>
+        
+        <section class="countdown-section">
+            <h2>✨ La Espera Terminó ✨</h2>
+            <div id="countdown" class="countdown-timer">¡Abre esto el 25 de diciembre!</div>
+        </section>
+
+        <section class="message-section">
+            <h2>💖 La Magia de la Navidad Eres Tú</h2>
+            <p>
+                Hoy, 25 de diciembre, con las luces brillando y a minutos que sea Navidad, mi corazón solo piensa en agradecer. Agradecer el regalo más maravilloso que he recibido: vos. 
+                No importa lo que haya bajo el árbol, porque mi verdadero tesoro es el tiempo, la risa y el amor que compartimos cada día. Sos mi paz, mi aventura y mi lugar seguro.
+            </p>
+            <p>
+                Gracias por hacer de mi vida un cuento de hadas. Te prometo que haremos de esta relacion la mas linda de la historia. ¡Te amo infinitamente, Gorditaa
+            </p>
+            <p class="signature">Con el amor eterno de, <br> Tu amor</p>
+        </section>
+
+        <section class="gallery-section">
+            <h2>🌹 Momentos que Atesoro</h2>
+            <div class="photo-container">
+                <img src="7C4BC8D8-BE77-4F44-82A3-BA5B41044260.jpeg" alt="Foto de la pareja" class="main-photo">
+            </div>
+            <p class="gallery-caption">Eres mi mejor recuerdo del pasado, mi hermosa realidad del presente y mi más dulce esperanza del futuro.</p>
+        </section>
+
+       <section class="form-section">
+            <h2>⭐ Nuestro Deseo Secreto</h2>
+            <p class="form-instruction">Mi amor, si tuvieras un deseo navideño (que podamos cumplir juntos), ¿cuál sería? ¡Escríbelo!</p>
+            
+                        <form action="https://formspree.io/f/mgvraonb" method="POST" id="christmasForm">
+                
+                <input type="email" name="_replyto" placeholder="Tu email (opcional)" style="display: none;">
+                
+                <textarea name="Deseo" rows="4" placeholder="Mi deseo navideño es..." required></textarea>
+                
+                <button type="submit">Enviar mi deseo con un beso</button>
+                
+                <p id="form-status" style="margin-top: 15px; font-weight: bold; color: #E91E63;"></p>
+            </form>
+        </section>
+    
+
+    <script>
+    // Código del contador (existente)
+    const christmasDate = new Date("Dec 25, 2025 00:00:00").getTime(); 
+
+    const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = christmasDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        if (distance > 0) {
+            document.getElementById("countdown").innerHTML = 
+                days + "d : " + hours + "h : " + minutes + "m : " + seconds + "s";
+        }
+        
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "¡Míranos! ¡Lo logramos! ¡Feliz Navidad! 🥂";
+            document.getElementById("countdown").style.fontSize = "1.5em";
+        }
+    }, 1000);
+
+    // CÓDIGO AÑADIDO: Manejo del formulario (AJAX/Fetch)
+    const form = document.getElementById('christmasForm');
+    const formStatus = document.getElementById('form-status');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formURL = e.target.action;
+        const formData = new FormData(form);
+
+        formStatus.textContent = 'Enviando...';
+        
+        try {
+            const response = await fetch(formURL, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                formStatus.textContent = '¡Gracias, mi amor! Recibí tu deseo. ❤️';
+                form.reset();
+            } else {
+                formStatus.textContent = 'Hubo un error al enviar. ¡Inténtalo de nuevo!';
+            }
+        } catch (error) {
+            formStatus.textContent = 'Error de conexión. Revisa tu internet.';
+        }
+    });
+    </script>
+
+</body>
+</html>
